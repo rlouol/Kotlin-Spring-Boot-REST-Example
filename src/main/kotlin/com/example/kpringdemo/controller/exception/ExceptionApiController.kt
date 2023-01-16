@@ -23,15 +23,17 @@ import javax.validation.Valid
 @Validated
 class ExceptionApiController {
 
-  @GetMapping("/hello")
+  @GetMapping("/error")
   fun hello() {
     throw RuntimeException("강제 RE 발생!")
   }
 
-  @GetMapping("/index-error")
-  fun indexError() {
+  @GetMapping("/hello")
+  fun indexError(): String {
     val list = mutableListOf<String>()
-    val temp = list[0]
+    // val temp = list[0]
+
+    return "hello"
   }
 
   @GetMapping("")
@@ -108,7 +110,7 @@ class ExceptionApiController {
 
   private fun getErrorResponse(errors: MutableList<Error>, request: HttpServletRequest): ErrorResponse {
     return ErrorResponse().apply {
-      this.resultCode = ""
+      this.resultCode = "FAIL"
       this.httpStatus = HttpStatus.BAD_REQUEST.value().toString()
       this.httpMethod = request.method
       this.message = "요청에 에러가 발생하였습니다!"
